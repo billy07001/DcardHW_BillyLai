@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Table } from 'react-bootstrap';
 
 class App extends Component {
     constructor(props){
@@ -19,8 +20,16 @@ class App extends Component {
                    items: json
                })
           });
+        if (this.scroll) {
+            this.scroll.addEventListener("scroll", e => {
+              const { clientHeight, scrollHeight, scrollTop } = e.target;
+              // const { clientHeight, scrollHeight, scrollTop } = this.scroll;
+       
+              const isBottom = scrollTop + clientHeight + 20 > scrollHeight;
+              console.log(scrollTop, clientHeight, scrollHeight, isBottom);
+        });   
+     }
     }
-  
     render(){
 
     var {isLoaded, items} = this.state;
@@ -32,13 +41,16 @@ class App extends Component {
             return(
                 <div>
                     <h2> Welcome to the 交通部觀光景點</h2>
-                    <ul>
+                    <Table striped bordered hover size="sm">
+                      <tbody>
                         {items.slice(0,this.state.spotLimit).map((item,index) => (
-                            <li key={index}>
-                                {item.Name}
-                            </li>
+                            <tr key={index}>
+                                <td>{item.Name}</td>
+                                <td>{item.DescriptionDetail}</td>
+                            </tr>
                         ))};
-                    </ul>
+                      </tbody>
+                    </Table>
                 </div>
             )
         
