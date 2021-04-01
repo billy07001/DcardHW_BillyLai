@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Table } from 'react-bootstrap';
+import {Table} from 'react-bootstrap';
+import '../style/App.css';
 
 class App extends Component {
     constructor(props){
@@ -39,14 +40,19 @@ class App extends Component {
     }
     else{
             return(
-                <div>
-                    <h2> Welcome to the 交通部觀光景點</h2>
-                    <Table striped bordered hover size="sm">
+                <div ref={e => (this.scroll = e)}>
+                    <Table>
+                      <thead>
+                           <tr>
+                               <td>景點名稱</td>
+                               <td>景點位址</td>
+                           </tr>
+                      </thead>
                       <tbody>
                         {items.slice(0,this.state.spotLimit).map((item,index) => (
                             <tr key={index}>
                                 <td>{item.Name}</td>
-                                <td>{item.DescriptionDetail}</td>
+                                <td>{item.Description}</td>
                             </tr>
                         ))};
                       </tbody>
