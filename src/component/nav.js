@@ -5,13 +5,9 @@ import "../style/nav.css";
 function Topnav(){
 
         return (
-            <Navbar bg="dark" expand="lg" fixed="top" variant="dark">
+            <Navbar bg="light" expand="lg" variant="light">
             <Container>
-            <Row>
-            <Col>
-            <h2>Welcome to the 交通部觀光景點</h2>
-            </Col>
-            <Col>
+            <h2 color="white">Welcome to the 交通部觀光景點</h2>
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
                 <Container>
@@ -22,8 +18,6 @@ function Topnav(){
                 </Container>
                 </Nav>
             </Navbar.Collapse>
-            </Col>
-            </Row>
             </Container>
             </Navbar>
         );
