@@ -1,67 +1,40 @@
-import React, { Component } from 'react';
-import {Table} from 'react-bootstrap';
-import '../style/App.css';
+import { render } from "@testing-library/react";
+import React from "react"
+import { BrowserRouter, Route, Link } from "react-router-dom"
+import { Navbar, Nav, Container, Row, Col, NavDropdown } from "react-bootstrap"
 
-class App extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            items: [],
-            isLoaded: false,
-            spotLimit: 30            
-        }
-    }
+import '../style/App.css'
+import { scenicSpot } from "./scenicSpot/scenicSpot"
+import { Taipei } from "./scenicSpot/Taipei/Taipei"
 
-    componentDidMount(){
-        fetch('https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot?$top=30&$format=JSON')
-          .then(res => res.json())
-          .then(json => {
-               this.setState({
-                   isLoaded: true,
-                   items: json
-               })
-          });
-        if (this.scroll) {
-            this.scroll.addEventListener("scroll", e => {
-              const { clientHeight, scrollHeight, scrollTop } = e.target;
-              // const { clientHeight, scrollHeight, scrollTop } = this.scroll;
-       
-              const isBottom = scrollTop + clientHeight + 20 > scrollHeight;
-              console.log(scrollTop, clientHeight, scrollHeight, isBottom);
-        });   
-     }
-    }
-    render(){
-
-    var {isLoaded, items} = this.state;
-
-    if (!isLoaded){
-        return (<div>Loading...</div>)
-    }
-    else{
-            return(
-                <div ref={e => (this.scroll = e)}>
-                    <Table>
-                      <thead>
-                           <tr>
-                               <td>景點名稱</td>
-                               <td>景點位址</td>
-                           </tr>
-                      </thead>
-                      <tbody>
-                        {items.slice(0,this.state.spotLimit).map((item,index) => (
-                            <tr key={index}>
-                                <td>{item.Name}</td>
-                                <td>{item.Description}</td>
-                            </tr>
-                        ))};
-                      </tbody>
-                    </Table>
-                </div>
-            )
-        
-    }
-  }
+function App() {
+    return (
+        <BrowserRouter>
+            <Navbar bg="light" expand="lg" variant="light">
+                <Container>
+                    <h2 color="white">Welcome to the 交通部觀光景點</h2>
+                    <Navbar.Collapse id="basic-navbar-nav">
+                        <Nav className="mr-auto">
+                            <Container>
+                                <Row>
+                                    <Col><Nav.Link><Link to="/scenicSpot">全部景點列表</Link></Nav.Link></Col>
+                                    <Col>
+                                        <NavDropdown title="縣市景點列表" id="basic-nav-dropdown">
+                                            <NavDropdown.Item><Link to="/scenicSpot/Taipei">台北市</Link></NavDropdown.Item>
+                                            <NavDropdown.Item>Another action</NavDropdown.Item>
+                                            <NavDropdown.Item>Something</NavDropdown.Item>
+                                        </NavDropdown>
+                                    </Col>
+                                </Row>
+                            </Container>
+                        </Nav>
+                    </Navbar.Collapse>
+                </Container>
+                <Route exact path="/scenicSpot" component={scenicSpot} />
+                <Route exact path="/scenicSpot/Taipei" component={Taipei} />
+            </Navbar>
+        </BrowserRouter >
+    );
 }
 
 export default App;
