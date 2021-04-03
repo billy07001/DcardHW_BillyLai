@@ -1,5 +1,5 @@
 # 1.啟動說明
-本作業由React-App所開發，可用CMD或Powershell進入資料夾，並輸入`npm start`，即可啟用。
+本作業用React-App開發，可用CMD或Powershell進入資料夾，並輸入`npm start`，即可啟用。
 
 # 2.作業架構說明
 在src資料夾下的架構:
